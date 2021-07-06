@@ -6,7 +6,7 @@
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
-    "build": "ng build --prod --base-href https://katherine-fe.github.io/LIM014-burger-queen-api-client/",
+    "build": "ng build --prod --base-href https://eunice17.github.io/LIM014-burger-queen-api-client/",
     "deploy": "npx ngh --dir=dist/app-burger"
   },
   "private": true,

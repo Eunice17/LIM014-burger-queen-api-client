@@ -24,7 +24,6 @@ export class FilterPipe implements PipeTransform {
         } else if (item.type === arg) {
           result.push(item);
         }
-        /* (item.type === arg || item.status === arg) ? result.push(item):null; */
       }
     }
     return result;

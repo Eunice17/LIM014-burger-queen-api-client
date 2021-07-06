@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
 export class StaffGuard implements CanActivate {
   constructor(private authService: AuthService, private route: Router) { }
   canActivate() {
-
     try {
       const local: any = this.authService.getToken();
       const token: any = jwt_decode(local);

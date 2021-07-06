@@ -13,8 +13,6 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
   showModalUser() {
     this.modalUser = true;
     this.title = 'Add';

@@ -31,6 +31,9 @@ export class ListUserComponent implements OnInit, OnDestroy {
   getUsers() {
     this.users.getUser().subscribe(data => {
       this.usersAdmin = data.filter((obj: any) => obj.email !== "admin@localhost.com");
+    }, error => {
+      console.log(error);
+      alert("Bad Request");
     });
   }
   showEdit(userItem: Object) {

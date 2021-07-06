@@ -5,8 +5,6 @@ import { itemOrder, prodOrder } from '../../../model/order-interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import jwt_decode from 'jwt-decode';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import * as dayjs from 'dayjs';
-
 @Component({
   selector: 'app-list-orders',
   templateUrl: './list-orders.component.html',
@@ -34,8 +32,8 @@ export class ListOrdersComponent implements OnInit {
     this.buildForm();
   }
   listenAddProduct() {
-    this.orderSuscription = this.orders$.buttonAddClickEventTrack.subscribe(
-      () => {
+    this.orderSuscription = this.orders$.buttonAddClickEventTrack
+      .subscribe(() => {
         this.objProd = this.orders$.getObjectOrderProduct();
         let exist = this.orders.some(
           (item) => item.product.name === this.objProd.product.name
@@ -44,8 +42,10 @@ export class ListOrdersComponent implements OnInit {
           this.orders.push(this.objProd);
           this.totalBill();
         }
-      }
-    );
+      }, error => {
+        console.log(error);
+        alert("Bad request");
+      });
   }
   plus(id: string) {
     this.orders.filter((obj) => obj.product._id == id)[0].qty += 1;
@@ -92,10 +92,10 @@ export class ListOrdersComponent implements OnInit {
         productId: item.product._id,
         qty: item.qty,
       })),
-      }
-      return order;
-    };
-   
+    }
+    return order;
+  };
+
   sendOrder() {
     if (this.form.valid) {
       this.orderSendSuscription = this.orders$
@@ -104,6 +104,9 @@ export class ListOrdersComponent implements OnInit {
           this.form.reset();
           this.confirmation = false;
           this.cleanList();
+        }, error => {
+          console.log(error);
+          alert("Bad Request")
         });
     } else {
       this.confirmation = true;

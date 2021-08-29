@@ -9,7 +9,8 @@
 
 # dependencies
 /node_modules
-
+./package-lock.json
+/package-lock.json.1787972506
 # profiling files
 chrome-profiler-events*.json
 

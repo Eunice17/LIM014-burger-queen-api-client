@@ -43,6 +43,9 @@ export class ModalUserComponent implements OnInit {
       this.userService.postUser(objUser).subscribe(() => {
         this.addUser.reset({ email: '', password: '', rol: '' });
         this.closeModalUser();
+      }, error => {
+        console.log(error);
+        alert("Bad Request, enter valid data");
       });
     } else {
       alert("Complete all inputs and enter correct data");
@@ -52,14 +55,18 @@ export class ModalUserComponent implements OnInit {
   deleteModalUser() {
     this.userService.deleteUser(this.userSelect._id).subscribe(() => {
       this.closeModalUser();
+    }, error => {
+      console.log(error);
+      alert("Bad Request, enter valid data");
     });
   }
+
   updateUser(email: string, rol: string, pass: string) {
     if (!this.expReg.test(email) || email == '' || rol == '' || pass == '') {
       alert("Complete all inputs and enter correct data");
     } else {
       const userUpdate = {
-        email: email,
+        email: email.toLowerCase(),
         password: pass,
         roles: {
           admin: rol == 'true' ? true : false
@@ -67,6 +74,9 @@ export class ModalUserComponent implements OnInit {
       }
       this.userService.updateUser(userUpdate, this.userSelect._id).subscribe(() => {
         this.closeModalUser();
+      }, error => {
+        console.log(error, this.userSelect);
+        alert("Bad Request, enter valid data");
       });
     }
   }

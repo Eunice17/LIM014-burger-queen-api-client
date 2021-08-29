@@ -3,7 +3,6 @@ import { OrdersService } from 'src/app/services/orders/orders.service';
 import { Order } from '../../../model/order-interface';
 import { Subscription } from 'rxjs';
 import { changeStatus } from '../../../utilities/changeStatus';
-
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
@@ -31,6 +30,9 @@ export class RecordComponent implements OnInit {
   getOrders() {
     this.order.getListOrders().subscribe((data) => {
       this.orders = data;
+    }, error => {
+      console.log(error);
+      alert("Bad Request");
     });
   }
   getOrderFilter(type: string) {
@@ -48,9 +50,11 @@ export class RecordComponent implements OnInit {
     const orderEdit = changeStatus(order);
     this.orderUpdateSuscription = this.order
       .updateOrder(orderEdit, order._id)
-      .subscribe();
+      .subscribe(() => { }, error => {
+        console.log(error);
+        alert("Bad Request");
+      });
   }
-
 
   ngOnDestroy(): void {
     this.orderUpdateSuscription

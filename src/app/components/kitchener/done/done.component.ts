@@ -28,6 +28,9 @@ export class DoneComponent implements OnInit, OnDestroy {
   orders() {
     this.get.getListOrders().subscribe(data => {
       this.orderDone = data;
+    }, error => {
+      console.log(error);
+      alert("Bad Request");
     });
   }
 }

@@ -22,6 +22,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.productsSuscription = this.http.refresh$.subscribe(() => {
       this.getProducts();
+    }, error => {
+      console.log(error);
+      alert("Bad Request");
     });
     this.filterType('desayuno');
     this.getProducts();
@@ -29,6 +32,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
   getProducts() {
     this.http.getListProducts().subscribe((data) => {
       this.products = data;
+    }, error => {
+      console.log(error);
+      alert("Bad Request");
     });
   }
   filterType(type: string) {

@@ -3,19 +3,19 @@
     <div class="modal_content">
     <div class="ctn-edit-user" >
         <h2>Update Product</h2>
-        <form class="form" [formGroup]="form">
-          <input type="text" placeholder="Name Product" name="NameProduct" formControlName="name"  [(ngModel)]="objProd2.name">
-          <input type="text" placeholder="Price" formControlName="price" [(ngModel)]="objProd2.price">
-          <select name="typeProduct" class="select-product" formControlName="type" [(ngModel)]="objProd2.type">
+        <form class="form">
+          <input [(value)]="objProd2.name" #nameProduct type="text" placeholder="Name Product" name="nameProduct">
+          <input [(value)]="objProd2.price" #price type="text" placeholder="Price">
+          <select [(value)]="objProd2.type" #typeProd name="typeProduct" class="select-product">
             <option value="desayuno">Breakfast</option>
             <option value="menú">Menu</option>
             <option value="acompañamientos">Snacks</option>
             <option value="Para tomar">Drink</option>
             </select>
-            <div><input formControlName="image"></div>
+            <div><input [(value)]="objProd2.image" #image></div>
           <div class="cancel-save">
             <button type='button' class="cancel" (click)="cerrarModalProduct()">Cancel</button>
-            <button type='button' (click)="editProduct()" class="save">Update</button>
+            <button type='button' (click)="editProduct(nameProduct.value, price.value, typeProd.value, image.value)" class="save">Update</button>
           </div>
         </form>
     </div>

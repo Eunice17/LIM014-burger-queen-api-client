@@ -38,6 +38,9 @@ export class ModalComponent implements OnInit {
     this.prod.deleteProduct(this.objProd2).subscribe(() => {
       this.products = this.products.filter((prod) => prod._id != this.objProd2.id);
       this.cerrarModalProduct();
+    }, error => {
+      console.log(error);
+      alert("Bad Request, enter valid data");
     });
   }
   addProduct() {
@@ -53,28 +56,30 @@ export class ModalComponent implements OnInit {
         this.form.reset();
         this.cerrarModalProduct();
         console.log(newProd); console.log('registrado');
+      }, error => {
+        console.log(error);
+        alert("Bad Request, enter valid data");
       });
     } else {
       alert('Verifique los campos')
     }
   }
-  editProduct() {
-    if (this.objProd2._id !== null) {
-      if (this.form.valid) {
-        const newProd = {
-          name: this.form.value.name,
-          price: this.form.value.price,
-          image: this.form.value.image,
-          type: this.form.value.type,
-        };
-        this.prod.updateProduct(newProd, this.objProd2._id).subscribe(() => {
-          this.form.reset();
-          this.cerrarModalProduct();
-          console.log(newProd); console.log('editado');
-        });
-      } else {
-        alert('Verifique los campos')
+  editProduct(nameProd: string, price: string, type: string, image: string) {
+    if (nameProd == '' || price == '' || type == '' || image == '') {
+      alert("Complete all inputs and enter correct data");
+    } else {
+      const newProd = {
+        name: nameProd,
+        image: image,
+        price: parseInt(price),
+        type: type,
       }
+      this.prod.updateProduct(newProd, this.objProd2._id).subscribe(() => {
+        this.cerrarModalProduct();
+      }, error => {
+        alert("Bad Request, enter valid data");
+        console.log(error, this.objProd2);
+      });
     }
   }
 }
